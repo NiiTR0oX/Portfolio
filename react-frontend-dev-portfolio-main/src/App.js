@@ -22,35 +22,35 @@ class App extends Component {
     };
   }
 
-  applyPickedLanguage(pickedLanguage, oppositeLangIconId) {
-    this.swapCurrentlyActiveLanguage(oppositeLangIconId);
-    document.documentElement.lang = pickedLanguage;
-    var resumePath =
-      document.documentElement.lang === window.$primaryLanguage
-        ? `res_primaryLanguage.json`
-        : `res_secondaryLanguage.json`;
-    this.loadResumeFromPath(resumePath);
-  }
+  // applyPickedLanguage(pickedLanguage, oppositeLangIconId) {
+  //   this.swapCurrentlyActiveLanguage(oppositeLangIconId);
+  //   document.documentElement.lang = pickedLanguage;
+  //   var resumePath =
+  //     document.documentElement.lang === window.$primaryLanguage
+  //       ? `res_primaryLanguage.json`
+  //       : `res_secondaryLanguage.json`;
+  //   this.loadResumeFromPath(resumePath);
+  // }
 
-  swapCurrentlyActiveLanguage(oppositeLangIconId) {
-    var pickedLangIconId =
-      oppositeLangIconId === window.$primaryLanguageIconId
-        ? window.$secondaryLanguageIconId
-        : window.$primaryLanguageIconId;
-    document
-      .getElementById(oppositeLangIconId)
-      .removeAttribute("filter", "brightness(40%)");
-    document
-      .getElementById(pickedLangIconId)
-      .setAttribute("filter", "brightness(40%)");
-  }
+  // swapCurrentlyActiveLanguage(oppositeLangIconId) {
+  //   var pickedLangIconId =
+  //     oppositeLangIconId === window.$primaryLanguageIconId
+  //       ? window.$secondaryLanguageIconId
+  //       : window.$primaryLanguageIconId;
+  //   document
+  //     .getElementById(oppositeLangIconId)
+  //     .removeAttribute("filter", "brightness(40%)");
+  //   document
+  //     .getElementById(pickedLangIconId)
+  //     .setAttribute("filter", "brightness(40%)");
+  // }
 
   componentDidMount() {
     this.loadSharedData();
-    this.applyPickedLanguage(
-      window.$primaryLanguage,
-      window.$secondaryLanguageIconId
-    );
+    // this.applyPickedLanguage(
+    //   window.$primaryLanguage,
+    //   window.$secondaryLanguageIconId
+    // );
   }
 
   loadResumeFromPath(path) {
@@ -59,15 +59,21 @@ class App extends Component {
       dataType: "json",
       cache: false,
       success: function (data) {
-        this.setState({ resumeData: data,
-          resumeProjects: data.projectsData,
-          resumeBasicInfo: data.basicInfo });
+        this.setState({ 
+          resumeData: data, 
+          resumeProjects: data.projectsData, 
+          resumeBasicInfo: data.basicInfo,
+          resumeExperience: data.experience, // <--- Ajout ici
+
+        }, () => console.log("Données mises à jour dans state :", this.state));
       }.bind(this),
+           
       error: function (xhr, status, err) {
         alert(err);
       },
     });
   }
+  
 
   loadSharedData() {
     $.ajax({
@@ -76,12 +82,12 @@ class App extends Component {
       dataType: "json",
       cache: false,
       success: function (data) {
-        console.log("Données chargées depuis JSON :", data); // Ajout du log
+        // console.log("Données chargées depuis JSON :", data); // Ajout du log
         this.setState({ sharedData: data });
         document.title = `${data.basic_info.name}`;
       }.bind(this),
       error: function (xhr, status, err) {
-        console.error("Erreur lors du chargement du JSON :", err);
+        // console.error("Erreur lors du chargement du JSON :", err);
         alert(err);
       },
     });
@@ -130,17 +136,56 @@ class App extends Component {
           resumeBasicInfo={this.state.resumeData.basic_info}
           sharedBasicInfo={this.state.sharedData.basic_info}
         />
+        {/* { console.log(this.state.sharedData)} */}
         <Projects
-          resumeProjects={this.state.resumeProjects}
-          resumeBasicInfo={this.state.resumeBasicInfo}
+          resumeProjects={this.state.sharedData?.projectsData}
+          // resumeProjects={this.state.resumeData.resumeProjects}
+          resumeBasicInfo={this.state.sharedData?.basic_info}
         />
         <Skills
           sharedSkills={this.state.sharedData.skills}
           resumeBasicInfo={this.state.resumeData.basic_info}
         />
         <Experience
-          resumeExperience={this.state.resumeData.experience}
-          resumeBasicInfo={this.state.resumeData.basic_info}
+          
+          resumeExperience={[
+            { title: "Développeur", 
+              company: "Ma Boîte", 
+              years: "2024 - 2025", 
+              technologies: ["React", "Node.js"], 
+              mainTech: ["JavaScript"] },
+
+            { title: "Développeur", 
+              company: "Ma Boîte", 
+              years: "2024 - 2025", 
+              technologies: ["React", "Node.js"], 
+              mainTech: ["React"] },
+
+            { title: "Développeur", 
+              company: "Ma Boîte", 
+              years: "2024 - 2025", 
+              technologies: ["React", "Node.js"], 
+              mainTech: ["SASS"] },
+
+            { title: "Développeur", 
+              company: "Ma Boîte", 
+              years: "2024 - 2025", 
+              technologies: ["React", "Node.js"], 
+              mainTech: ["HTML"] },
+
+            { title: "Développeur", 
+              company: "Ma Boîte", 
+              years: "2024 - 2025", 
+              technologies: ["React", "Node.js"], 
+              mainTech: ["CSS"] },
+
+            { title: "Développeur", 
+              company: "Ma Boîte", 
+              years: "2024 - 2025", 
+              technologies: ["React", "Node.js"], 
+              mainTech: ["GitHub"] },
+          ]}
+          resumeBasicInfo={{ section_name: { experience: "Expérience" } }}
         />
         <Footer sharedBasicInfo={this.state.sharedData.basic_info} />
       </div>

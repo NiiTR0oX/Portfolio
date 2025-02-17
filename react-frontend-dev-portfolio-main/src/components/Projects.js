@@ -13,11 +13,11 @@ class Projects extends Component {
   render() {
     // Par défaut, définir "Projects" si pas de nom personnalisé
     let sectionName = this.props.resumeBasicInfo?.section_name?.projects || "Projects";
-    console.log(this.props.resumeProjects);
-    console.log(this.props.resumeBasicInfo);
+    // console.log(this.props.resumeProjects);
+    // console.log(this.props.resumeBasicInfo);
 
     let detailsModalShow = (data) => {
-      console.log(data);
+      // console.log(data);
       this.setState({ detailsModalShow: true, deps: data });
     };
 
@@ -30,7 +30,7 @@ class Projects extends Component {
         return (
           <div
             className="col-sm-12 col-md-6 col-lg-4"
-            key={project.title}
+            key={project.id}
             style={{ cursor: "pointer" }}
           >
             <span className="portfolio-item d-block">

@@ -7,9 +7,17 @@ import "react-vertical-timeline-component/style.min.css";
 import Badge from "react-bootstrap/Badge";
 
 class Experience extends Component {
+
   render() {
     // Définir "Experience" comme valeur par défaut
+    
     let sectionName = this.props.resumeBasicInfo?.section_name?.experience || "Experience";
+
+    console.log("Props reçues par Experience.js :", this.props);
+
+  
+    
+
 
     let work = [];
 
