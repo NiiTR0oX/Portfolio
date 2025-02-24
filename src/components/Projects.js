@@ -37,13 +37,13 @@ class Projects extends Component {
             <span className="portfolio-item d-block">
               <div className="foto" onClick={() => detailsModalShow(project)}>
                 <div>
-                  <img
-                    src={project.images[0] ? project.images[0] : "https://via.placeholder.com/300"}
-                    alt="projectImages"
-                    height="230"
-                  
-                    style={{ marginBottom: 0, paddingBottom: 0, position: "relative" }}
-                  />
+                <img
+                   src={project.images[0] ? project.images[0] : "/images/placeholder.png"}
+                   alt="image par défaut"
+                   height="230"
+                   style={{ marginBottom: 0, paddingBottom: 0, position: "relative" }}
+                />
+
                   <span className="project-date">{project.startDate}</span>
                   <br />
                   <p className="project-title-settings mt-3">{project.title}</p>

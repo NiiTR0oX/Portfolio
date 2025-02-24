@@ -150,16 +150,16 @@ class App extends Component {
           
           resumeExperience={[
             { title: "Développeur", 
-              company: "Ma Boîte", 
+              company: "OpenClassRooms", 
               years: "2024 - 2025", 
-              technologies: ["React", "Node.js"], 
-              mainTech: ["JavaScript"] },
+              technologies: ["React", "Node.js" , "HTML" , "CSS" , "GIT" , "GITHUB"], 
+              mainTech: ["JavaScript" , "React"] },
 
-            { title: "Développeur", 
-              company: "Ma Boîte", 
-              years: "2024 - 2025", 
-              technologies: ["React", "Node.js"], 
-              mainTech: ["React"] },
+            { title: "CQP Agent Logistique", 
+              company: "CMA centre de formation de la Chambre des Métiers et de l'Artisanat", 
+              years: "2022 - 2022", 
+              technologies: ["Scanners & PDA" , "Pack Office" , "TMS"], 
+              mainTech: ["WMS" , "ERP"] },
           ]}
           resumeBasicInfo={{ section_name: { experience: "Expérience" } }}
         />
